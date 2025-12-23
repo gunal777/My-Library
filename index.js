@@ -1,13 +1,15 @@
 const books = document.getElementById("books");
 const myLibrary = [];
 
-function Book(title, author, pages, read)
+class Book {
+constructor(title, author, pages, read)
 {
     this.id = crypto.randomUUID();
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+}
 }
 
 Book.prototype.toggleRead = function () {
@@ -66,7 +68,7 @@ function display()
     }   
 }
 
-function setupForm() {
+const setupForm = (function() {
     const dialog = document.getElementById("book-dialog");
     const openBtn = document.getElementById("new-book-btn");
     const form = dialog.querySelector("form");  
@@ -93,15 +95,12 @@ function setupForm() {
         dialog.close();
         form.reset();
     });
-}
+})();
 
-function defaultBooks() {
+let defaultBooks = (function() {
     myLibrary.push(
         new Book("The Hobbit", "J.R.R. Tolkien", 295, false),
         new Book("1984", "George Orwell", 328, true)
     );
     display();
-}
-
-defaultBooks();
-setupForm();
+})();   
